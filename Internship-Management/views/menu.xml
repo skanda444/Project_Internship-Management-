@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem id="menu_internship_root" name="Internship Management"/>
+
+    <menuitem id="menu_student" name="Students" parent="menu_internship_root"
+              action="action_internship_student"/>
+
+    <menuitem id="menu_application" name="Applications" parent="menu_internship_root"
+              action="action_internship_application"/>
+</odoo>
