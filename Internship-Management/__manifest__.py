@@ -26,7 +26,7 @@
 'description': """This Module is for training purposes.
 """,
 'category':'Human Resources',
-'author': ' Skanda.C',
+'author': ' Skanda.C, Jeevan V',
 'website': 'www.zbeanztech.com',
 "license": "LGPL-3",
 'depends': ['base',
