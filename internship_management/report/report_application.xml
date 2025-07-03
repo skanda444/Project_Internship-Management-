@@ -1,0 +1,37 @@
+<odoo>
+    <!-- Individual Application Report -->
+    <record id="action_report_internship_application" model="ir.actions.report">
+        <field name="name">Internship Application Report</field>
+        <field name="model">internship.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internship_management.report_application_template</field>
+        <field name="report_file">internship_management.report_application_template</field>
+        <field name="print_report_name">'Internship Application - %s' % (object.student_id.name)</field>
+        <field name="binding_model_id" ref="model_internship_application"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Summary Report for All Applications -->
+    <record id="action_report_internship_summary" model="ir.actions.report">
+        <field name="name">Internship Applications Summary</field>
+        <field name="model">internship.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internship_management.report_summary_template</field>
+        <field name="report_file">internship_management.report_summary_template</field>
+        <field name="print_report_name">'Internship Applications Summary - %s' % (context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d'))</field>
+        <field name="binding_model_id" ref="model_internship_application"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Certificate of Internship Report Action -->
+    <record id="action_report_internship_certificate" model="ir.actions.report">
+        <field name="name">Internship Certificate</field>
+        <field name="model">internship.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internship_management.internship_certificate_template</field>
+        <field name="report_file">internship_management.internship_certificate_template</field>
+        <field name="print_report_name">'Internship Certificate - %s' % (object.student_id.name)</field>
+        <field name="binding_model_id" ref="model_internship_application"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

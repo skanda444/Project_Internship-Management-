@@ -1,0 +1,293 @@
+<odoo>
+    <template id="report_application_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <h1 class="text-primary">Internship Application Report</h1>
+                            <p class="text-muted">Application ID: <span t-field="o.id"/></p>
+                        </div>
+
+                        <!-- Student Information Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h3 class="mb-0"><i class="fa fa-user"></i> Student Information</h3>
+                                    </div>
+                                    <div class="card-body">
+                        <div class="row">
+                                            <div class="col-md-6">
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td><strong>Full Name:</strong></td>
+                                                        <td><span t-field="o.student_id.name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Email Address:</strong></td>
+                                                        <td><span t-field="o.student_id.email"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Roll Number:</strong></td>
+                                                        <td><span t-field="o.student_id.roll_no"/></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td><strong>Department:</strong></td>
+                                                        <td><span t-field="o.student_id.department"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Course:</strong></td>
+                                                        <td><span t-field="o.student_id.course"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>CGPA:</strong></td>
+                                                        <td><span t-field="o.student_id.cgpa"/></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Information Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-success text-white">
+                                        <h3 class="mb-0"><i class="fa fa-briefcase"></i> Application Details</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td><strong>Internship Position:</strong></td>
+                                                        <td><span t-field="o.internship_id.name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Application Status:</strong></td>
+                                                        <td>
+                                                            <span t-if="o.status == 'draft'" class="badge badge-secondary">Draft</span>
+                                                            <span t-if="o.status == 'submitted'" class="badge badge-info">Submitted</span>
+                                                            <span t-if="o.status == 'approved'" class="badge badge-success">Approved</span>
+                                                            <span t-if="o.status == 'rejected'" class="badge badge-danger">Rejected</span>
+                                                            <span t-if="o.status == 'completed'" class="badge badge-primary">Completed</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td><strong>Application Date:</strong></td>
+                                                        <td><span t-field="o.applied_date"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Report Generated:</strong></td>
+                                                        <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <p class="text-muted">This report was generated automatically by the Internship Management System.</p>
+                                    <p class="text-muted">For any queries, please contact the administration.</p>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-6">
+                                        <p class="text-center">
+                                            <strong>Student Signature</strong><br/>
+                                            _________________________
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-center">
+                                            <strong>Administrator Signature</strong><br/>
+                                            _________________________
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Summary Report Template -->
+    <template id="report_summary_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h1 class="text-primary">Internship Applications Summary Report</h1>
+                        <p class="text-muted">Generated on: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                    </div>
+
+                    <!-- Statistics Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="mb-0"><i class="fa fa-chart-bar"></i> Application Statistics</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-md-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="text-primary"><span t-esc="len(docs)"/></h4>
+                                                <p class="mb-0">Total Applications</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="text-info"><span t-esc="len([d for d in docs if d.status == 'submitted'])"/></h4>
+                                                <p class="mb-0">Submitted</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="text-success"><span t-esc="len([d for d in docs if d.status == 'approved'])"/></h4>
+                                                <p class="mb-0">Approved</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="text-danger"><span t-esc="len([d for d in docs if d.status == 'rejected'])"/></h4>
+                                                <p class="mb-0">Rejected</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Applications Table -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-success text-white">
+                                    <h3 class="mb-0"><i class="fa fa-list"></i> Applications List</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Student Name</th>
+                                                    <th>Roll Number</th>
+                                                    <th>Department</th>
+                                                    <th>Internship</th>
+                                                    <th>Status</th>
+                                                    <th>Applied Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="docs" t-as="o" t-index="index">
+                                                    <tr>
+                                                        <td><span t-esc="(index or 0) + 1"/></td>
+                                                        <td><span t-field="o.student_id.name"/></td>
+                                                        <td><span t-field="o.student_id.roll_no"/></td>
+                                                        <td><span t-field="o.student_id.department"/></td>
+                                                        <td><span t-field="o.internship_id.name"/></td>
+                                                        <td>
+                                                            <span t-if="o.status == 'draft'" class="badge badge-secondary">Draft</span>
+                                                            <span t-if="o.status == 'submitted'" class="badge badge-info">Submitted</span>
+                                                            <span t-if="o.status == 'approved'" class="badge badge-success">Approved</span>
+                                                            <span t-if="o.status == 'rejected'" class="badge badge-danger">Rejected</span>
+                                                            <span t-if="o.status == 'completed'" class="badge badge-primary">Completed</span>
+                                                        </td>
+                                                        <td><span t-field="o.applied_date"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <p class="text-muted">This summary report was generated automatically by the Internship Management System.</p>
+                                <p class="text-muted">For any queries, please contact the administration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Certificate of Internship Template -->
+    <template id="internship_certificate_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                <div style="
+                    background: url('http://192.168.152.105:8069/internship_management/static/description/certificate_bg.jpg') no-repeat center center;
+                    background-size: cover;
+                    border-radius: 12px; border: 4px solid #1a2956; padding: 40px 60px;
+                    position: relative; min-height: 600px; font-family: 'Montserrat', Arial, sans-serif;">
+                    <!-- Decorative Gold Seal (optional, can be removed if included in background) -->
+                    <!-- <img src="/internship_management/static/description/seal.png" style="position: absolute; top: 30px; right: 40px; width: 90px;" alt="Seal"/> -->
+                    <div style="position: relative; z-index: 1;">
+                        <h1 style="text-align: center; color: #1a2956; font-size: 2.5em; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px;">
+                            CERTIFICATE OF INTERNSHIP
+                        </h1>
+                        <p style="text-align: center; color: #1a2956; font-size: 1.1em; margin-bottom: 30px;">
+                            This internship program certificate is proudly awarded to
+                        </p>
+                        <h2 style="text-align: center; color: #1a2956; font-size: 2.2em; font-weight: bold; margin-bottom: 10px;">
+                            <span t-field="o.student_id.name"/>
+                        </h2>
+                        <hr style="width: 60%; margin: 30px auto 20px auto; border: 1px solid #1a2956;"/>
+                        <p style="text-align: center; color: #1a2956; font-size: 1.15em; margin-bottom: 40px;">
+                            For outstanding completion of the compulsory internship program at
+                            <strong><span t-field="o.internship_id.name"/></strong>
+                            from <span t-field="o.start_date"/> to <span t-field="o.end_date"/>.
+                        </p>
+                        <div style="display: flex; justify-content: space-between; margin-top: 60px;">
+                            <div style="text-align: center;">
+                                <span style="font-weight: bold;">Avery Davis</span><br/>
+                                <span style="font-weight: bold; color: #1a2956;">CEO</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <span style="font-weight: bold;">Reese Miller</span><br/>
+                                <span style="font-weight: bold; color: #1a2956;">Program Manager</span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
