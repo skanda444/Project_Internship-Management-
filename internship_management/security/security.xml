@@ -1,0 +1,8 @@
+<odoo>
+    <record id="group_internship_manager" model="res.groups">
+        <field name="name">Internship Management / Manager</field>
+        <field name="category_id" ref="base.menu_users"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">The manager of internship applications.</field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <menuitem id="menu_internship_application_root" name="Internship Management" sequence="10" web_icon="internship_management,static/description/icon.png"/>
+
+        <menuitem id="menu_student" name="Students" parent="menu_internship_application_root"
+                  action="action_internship_student" sequence="10"/>
+
+        <menuitem id="menu_application" name="Applications" parent="menu_internship_application_root"
+                  action="action_internship_application" sequence="20"/>
+        
+        <menuitem id="menu_reports" name="Reports" parent="menu_internship_application_root" sequence="30"/>
+        
+        <menuitem id="menu_summary_report" name="Applications Summary" parent="menu_reports"
+                  action="action_internship_summary_report" sequence="10"/>
+    </data>
+</odoo>
