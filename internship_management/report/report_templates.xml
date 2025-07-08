@@ -44,10 +44,6 @@
                                                         <td><span t-field="o.student_id.department"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Course:</strong></td>
-                                                        <td><span t-field="o.student_id.course"/></td>
-                                                    </tr>
-                                                    <tr>
                                                         <td><strong>CGPA:</strong></td>
                                                         <td><span t-field="o.student_id.cgpa"/></td>
                                                     </tr>
