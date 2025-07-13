@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
+import base64
 
 class InternshipApplication(models.Model):
     _name = 'internship.application'
@@ -32,18 +33,62 @@ class InternshipApplication(models.Model):
             raise UserError("Report template not found. Please contact administrator to configure reports.")
 
     def send_application_report_email(self):
+        self.ensure_one()
         try:
-            self.ensure_one() # Ensure method is called on a single record
             template = self.env.ref('internship_management.email_template_internship_application_report')
-            template.send_mail(self.id, force_send=True)
         except ValueError:
             raise UserError("Email template not found. Please contact administrator to configure email templates.")
+        if not self.student_id or not self.student_id.email:
+            raise UserError("Recipient email address is missing on the student record.")
+        email_values = {
+            'email_to': self.student_id.email,
+        }
+        template.send_mail(self.id, force_send=True, email_values=email_values)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Success',
+                'message': 'Application report email sent successfully!',
+                'type': 'success',
+                'sticky': False,
+            }
+        }
 
-    # Optional: Method to send status update email (can be called by a button or automated action)
     def action_send_status_email(self):
         self.ensure_one()
-        template = self.env.ref('internship_management.email_application_status_template')
-        template.send_mail(self.id, force_send=True)
+        if not self.student_id or not self.student_id.email:
+            raise UserError("Recipient email address is missing on the student record.")
+
+        # Manually render the body using Python's format
+        body = (
+            f"Hello {self.student_id.name},\n\n"
+            f"Your application for {self.internship_id.name} has been {self.status}.\n\n"
+            "Thank you.\n\n"
+            "Best regards,\n"
+            "Internship Management Team"
+        )
+
+        subject = f"Internship Application Status Update - {self.student_id.name}"
+
+        mail_values = {
+            'subject': subject,
+            'body_html': f"<pre>{body}</pre>",
+            'email_to': self.student_id.email,
+            'email_from': 'kudremukha@gmail.com',  # Or your desired sender
+        }
+        mail = self.env['mail.mail'].create(mail_values)
+        mail.send()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Success',
+                'message': 'Status email sent successfully!',
+                'type': 'success',
+                'sticky': False,
+            }
+        }
 
     # Method to generate summary report
     def print_summary_report(self):

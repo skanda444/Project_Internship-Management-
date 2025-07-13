@@ -32,8 +32,6 @@
                     <p>Regards,<br/>Internship Management Team</p>
                 ]]>
             </field>
-            <field name="report_template" ref="internship_management.action_report_internship_application"/>
-            <field name="report_name">Internship_Application_${object.student_id.name}</field>
             <field name="auto_delete" eval="True"/>
         </record>
     </data>
